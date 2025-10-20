@@ -28,7 +28,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'   # 这里是你的网站文件目录
+          path: '.'  # 确认 index.html 在这个目录
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
