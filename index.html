@@ -91,72 +91,97 @@
         }
 
         .cake {
-            width: 180px;
-            height: 130px;
-            background: linear-gradient(to bottom, #8B4513 0%, #A0522D 50%, #8B4513 100%);
-            border-radius: 10px 10px 0 0;
+            width: 120px;
+            height: 90px;
+            background: linear-gradient(45deg, #8B4513 0%, #D2691E 25%, #A0522D 50%, #CD853F 75%, #8B4513 100%);
+            border-radius: 15px 15px 0 0;
             position: relative;
             margin: 0 auto;
+            box-shadow: 
+                0 8px 16px rgba(139, 69, 19, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(255, 215, 0, 0.3);
+            animation: cakeGlow 3s ease-in-out infinite alternate;
         }
 
         .cake::before {
             content: '';
             position: absolute;
-            top: -18px;
-            left: 10px;
-            right: 10px;
-            height: 35px;
-            background: linear-gradient(to bottom, #FFB6C1 0%, #FF69B4 100%);
-            border-radius: 18px 18px 10px 10px;
+            top: -15px;
+            left: 8px;
+            right: 8px;
+            height: 28px;
+            background: linear-gradient(45deg, #FFB6C1 0%, #FF1493 30%, #FF69B4 60%, #FFB6C1 100%);
+            border-radius: 15px 15px 8px 8px;
+            box-shadow: 
+                0 4px 8px rgba(255, 20, 147, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            animation: frostingShimmer 2s ease-in-out infinite alternate;
         }
 
         .cake::after {
             content: '';
             position: absolute;
-            top: -30px;
-            left: 20px;
-            right: 20px;
-            height: 25px;
-            background: linear-gradient(to bottom, #FFFFFF 0%, #F0F8FF 100%);
-            border-radius: 12px 12px 5px 5px;
+            top: -25px;
+            left: 15px;
+            right: 15px;
+            height: 20px;
+            background: linear-gradient(45deg, #FFFFFF 0%, #F0F8FF 30%, #E6E6FA 60%, #FFFFFF 100%);
+            border-radius: 10px 10px 4px 4px;
+            box-shadow: 
+                0 2px 6px rgba(0, 0, 0, 0.2),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                0 0 10px rgba(255, 255, 255, 0.5);
+            animation: creamGlow 2.5s ease-in-out infinite alternate;
         }
 
         .candles {
             position: absolute;
-            top: -55px;
+            top: -45px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 12px;
+            gap: 8px;
         }
 
         .candle {
-            width: 6px;
-            height: 35px;
-            background: linear-gradient(to bottom, #FFD700 0%, #FFA500 100%);
-            border-radius: 3px;
+            width: 5px;
+            height: 28px;
+            background: linear-gradient(45deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            border-radius: 2.5px;
             position: relative;
+            box-shadow: 
+                0 2px 4px rgba(255, 140, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            animation: candleGlow 1.5s ease-in-out infinite alternate;
         }
 
         .flame {
             position: absolute;
-            top: -12px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 10px;
-            height: 12px;
-            background: radial-gradient(circle, #FF4500 0%, #FF6347 50%, #FFD700 100%);
+            width: 8px;
+            height: 10px;
+            background: radial-gradient(ellipse at center, #FF4500 0%, #FF6347 30%, #FFD700 70%, #FFA500 100%);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: flicker 1s ease-in-out infinite alternate;
+            box-shadow: 
+                0 0 8px rgba(255, 69, 0, 0.8),
+                0 0 15px rgba(255, 215, 0, 0.4);
+            animation: flameFlicker 0.8s ease-in-out infinite alternate;
         }
 
         .plate {
-            width: 220px;
-            height: 18px;
-            background: linear-gradient(to bottom, #E6E6FA 0%, #D8BFD8 100%);
+            width: 150px;
+            height: 15px;
+            background: linear-gradient(45deg, #E6E6FA 0%, #D8BFD8 30%, #DDA0DD 60%, #E6E6FA 100%);
             border-radius: 50%;
             margin: 0 auto;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 4px 12px rgba(0,0,0,0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4),
+                0 0 15px rgba(221, 160, 221, 0.3);
+            animation: plateShine 4s ease-in-out infinite alternate;
         }
 
         /* 简化的烟花效果 - 避免闪烁 */
@@ -359,6 +384,109 @@
             100% {
                 opacity: 1;
                 transform: scale(1.2);
+            }
+        }
+
+        /* 蛋糕炫酷动画效果 */
+        @keyframes cakeGlow {
+            0% {
+                box-shadow: 
+                    0 8px 16px rgba(139, 69, 19, 0.4),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                    0 0 20px rgba(255, 215, 0, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 
+                    0 12px 24px rgba(139, 69, 19, 0.6),
+                    inset 0 3px 6px rgba(255, 255, 255, 0.5),
+                    0 0 30px rgba(255, 215, 0, 0.5);
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes frostingShimmer {
+            0% {
+                box-shadow: 
+                    0 4px 8px rgba(255, 20, 147, 0.3),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                box-shadow: 
+                    0 6px 12px rgba(255, 20, 147, 0.5),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.6);
+                filter: hue-rotate(10deg);
+            }
+        }
+
+        @keyframes creamGlow {
+            0% {
+                box-shadow: 
+                    0 2px 6px rgba(0, 0, 0, 0.2),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                    0 0 10px rgba(255, 255, 255, 0.5);
+                transform: translateY(0);
+            }
+            100% {
+                box-shadow: 
+                    0 4px 10px rgba(0, 0, 0, 0.3),
+                    inset 0 2px 4px rgba(255, 255, 255, 1),
+                    0 0 20px rgba(255, 255, 255, 0.8);
+                transform: translateY(-1px);
+            }
+        }
+
+        @keyframes candleGlow {
+            0% {
+                box-shadow: 
+                    0 2px 4px rgba(255, 140, 0, 0.4),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+                filter: brightness(1);
+            }
+            100% {
+                box-shadow: 
+                    0 4px 8px rgba(255, 140, 0, 0.6),
+                    inset 0 2px 2px rgba(255, 255, 255, 0.5);
+                filter: brightness(1.2);
+            }
+        }
+
+        @keyframes flameFlicker {
+            0% {
+                transform: translateX(-50%) scale(1) rotate(-2deg);
+                box-shadow: 
+                    0 0 8px rgba(255, 69, 0, 0.8),
+                    0 0 15px rgba(255, 215, 0, 0.4);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.1) rotate(1deg);
+                box-shadow: 
+                    0 0 12px rgba(255, 69, 0, 1),
+                    0 0 20px rgba(255, 215, 0, 0.6);
+            }
+            100% {
+                transform: translateX(-50%) scale(0.95) rotate(2deg);
+                box-shadow: 
+                    0 0 6px rgba(255, 69, 0, 0.6),
+                    0 0 12px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        @keyframes plateShine {
+            0% {
+                box-shadow: 
+                    0 4px 12px rgba(0,0,0,0.3),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+                    0 0 15px rgba(221, 160, 221, 0.3);
+                transform: rotateX(0deg);
+            }
+            100% {
+                box-shadow: 
+                    0 6px 18px rgba(0,0,0,0.4),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                    0 0 25px rgba(221, 160, 221, 0.5);
+                transform: rotateX(5deg);
             }
         }
 
