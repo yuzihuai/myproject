@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta name="browsermode" content="application">
+    <meta name="wap-font-scale" content="no">
+    
+    <!-- 微信分享优化 -->
+    <meta property="og:title" content="生日快乐 🎂 - 动态烟花祝福">
+    <meta property="og:description" content="为您送上最美好的生日祝福！点击屏幕看烟花绽放 🎆">
+    <meta property="og:type" content="website">
+    <meta name="description" content="动态生日祝福页面，带有绚丽烟花效果和生日蛋糕">
+    <meta name="keywords" content="生日快乐,生日祝福,烟花,蛋糕,动画">
+    
+    <title>🎂 生日快乐 - 动态烟花祝福 🎆</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .birthday-text {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .birthday-text h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .name-placeholder {
+            font-size: 2.5rem;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin: 20px 0;
+            padding: 10px 20px;
+            border: 3px dashed #ffeb3b;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: pulse 2s infinite;
+        }
+
+        .cake-container {
+            position: relative;
+            margin: 30px 0;
+            animation: bounceIn 1.5s ease-out 0.5s both;
+        }
+
+        .cake {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(to bottom, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .cake::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            right: 10px;
+            height: 40px;
+            background: linear-gradient(to bottom, #FFB6C1 0%, #FF69B4 100%);
+            border-radius: 20px 20px 10px 10px;
+        }
+
+        .cake::after {
+            content: '';
+            position: absolute;
+            top: -35px;
+            left: 20px;
+            right: 20px;
+            height: 30px;
+            background: linear-gradient(to bottom, #FFFFFF 0%, #F0F8FF 100%);
+            border-radius: 15px 15px 5px 5px;
+        }
+
+        .candles {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .candle {
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(to bottom, #FFD700 0%, #FFA500 100%);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 15px;
+            background: radial-gradient(circle, #FF4500 0%, #FF6347 50%, #FFD700 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 0.5s ease-in-out infinite alternate;
+        }
+
+        .plate {
+            width: 250px;
+            height: 20px;
+            background: linear-gradient(to bottom, #E6E6FA 0%, #D8BFD8 100%);
+            border-radius: 50%;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* 烟花效果 */
+        .firework {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: firework 3s ease-out infinite;
+        }
+
+        .firework::before,
+        .firework::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            animation: fireworkParticle 2s ease-out infinite;
+        }
+
+        .firework::before {
+            top: -10px;
+            left: -10px;
+            animation-delay: 0.2s;
+        }
+
+        .firework::after {
+            top: 10px;
+            left: 10px;
+            animation-delay: 0.4s;
+        }
+
+        .firework1 {
+            top: 20%;
+            left: 20%;
+            background: #ff0080;
+            animation-delay: 0s;
+        }
+
+        .firework1::before {
+            background: #ff69b4;
+        }
+
+        .firework1::after {
+            background: #ff1493;
+        }
+
+        .firework2 {
+            top: 30%;
+            right: 20%;
+            background: #00ff80;
+            animation-delay: 0.8s;
+        }
+
+        .firework2::before {
+            background: #32cd32;
+        }
+
+        .firework2::after {
+            background: #00fa9a;
+        }
+
+        .firework3 {
+            top: 15%;
+            left: 50%;
+            background: #8000ff;
+            animation-delay: 1.6s;
+        }
+
+        .firework3::before {
+            background: #9370db;
+        }
+
+        .firework3::after {
+            background: #ba55d3;
+        }
+
+        .firework4 {
+            top: 25%;
+            right: 30%;
+            background: #ff8000;
+            animation-delay: 2.4s;
+        }
+
+        .firework4::before {
+            background: #ffa500;
+        }
+
+        .firework4::after {
+            background: #ff6347;
+        }
+
+        .firework5 {
+            top: 35%;
+            left: 30%;
+            background: #0080ff;
+            animation-delay: 3.2s;
+        }
+
+        .firework5::before {
+            background: #1e90ff;
+        }
+
+        .firework5::after {
+            background: #00bfff;
+        }
+
+        /* 新增更多烟花 */
+        .firework6 {
+            top: 10%;
+            left: 70%;
+            background: #ffff00;
+            animation-delay: 0.4s;
+        }
+
+        .firework6::before {
+            background: #ffd700;
+        }
+
+        .firework6::after {
+            background: #ffffe0;
+        }
+
+        .firework7 {
+            top: 40%;
+            right: 10%;
+            background: #ff00ff;
+            animation-delay: 1.2s;
+        }
+
+        .firework7::before {
+            background: #da70d6;
+        }
+
+        .firework7::after {
+            background: #ee82ee;
+        }
+
+        .firework8 {
+            top: 18%;
+            left: 80%;
+            background: #00ffff;
+            animation-delay: 2.0s;
+        }
+
+        .firework8::before {
+            background: #40e0d0;
+        }
+
+        .firework8::after {
+            background: #afeeee;
+        }
+
+        /* 大型烟花效果 */
+        .big-firework {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: bigFirework 4s ease-out infinite;
+        }
+
+        .big-firework1 {
+            top: 12%;
+            left: 40%;
+            background: #ff4500;
+            animation-delay: 1s;
+        }
+
+        .big-firework2 {
+            top: 28%;
+            right: 15%;
+            background: #32cd32;
+            animation-delay: 3s;
+        }
+
+        /* 流星效果 */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: shootingStar 3s linear infinite;
+        }
+
+        .shooting-star1 {
+            top: 5%;
+            left: 10%;
+            animation-delay: 0.5s;
+        }
+
+        .shooting-star2 {
+            top: 8%;
+            right: 25%;
+            animation-delay: 2s;
+        }
+
+        .shooting-star3 {
+            top: 12%;
+            left: 60%;
+            animation-delay: 3.5s;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5);
+            }
+            to {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.6);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(50px);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-10px);
+            }
+            70% {
+                transform: scale(0.9) translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes flicker {
+            0% {
+                transform: translateX(-50%) rotate(-2deg) scale(1);
+            }
+            100% {
+                transform: translateX(-50%) rotate(2deg) scale(1.1);
+            }
+        }
+
+        @keyframes firework {
+            0% {
+                opacity: 1;
+                transform: scale(0);
+                box-shadow: 0 0 0 0 currentColor;
+            }
+            15% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 
+                    0 0 0 10px transparent,
+                    0 0 0 20px transparent,
+                    0 0 0 30px transparent;
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.5);
+                box-shadow: 
+                    0 0 0 40px transparent,
+                    0 0 0 60px transparent,
+                    0 0 0 80px transparent,
+                    0 0 0 100px transparent;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+                box-shadow: 
+                    0 0 0 120px transparent,
+                    0 0 0 140px transparent,
+                    0 0 0 160px transparent,
+                    0 0 0 180px transparent;
+            }
+        }
+
+        @keyframes fireworkParticle {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(20px, -20px) scale(0.8);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(40px, -40px) scale(0);
+            }
+        }
+
+        @keyframes bigFirework {
+            0% {
+                opacity: 1;
+                transform: scale(0);
+                box-shadow: 
+                    0 0 0 0 currentColor,
+                    0 0 10px currentColor;
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 
+                    0 0 20px currentColor,
+                    0 0 40px currentColor,
+                    0 0 60px currentColor;
+            }
+            40% {
+                opacity: 0.9;
+                transform: scale(2);
+                box-shadow: 
+                    0 0 0 50px transparent,
+                    0 0 0 80px transparent,
+                    0 0 0 110px transparent,
+                    0 0 0 140px transparent;
+            }
+            70% {
+                opacity: 0.5;
+                transform: scale(3);
+                box-shadow: 
+                    0 0 0 170px transparent,
+                    0 0 0 200px transparent,
+                    0 0 0 230px transparent,
+                    0 0 0 260px transparent;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(4);
+                box-shadow: 
+                    0 0 0 290px transparent,
+                    0 0 0 320px transparent,
+                    0 0 0 350px transparent,
+                    0 0 0 380px transparent;
+            }
+        }
+
+        @keyframes shootingStar {
+            0% {
+                opacity: 1;
+                transform: translateX(0) translateY(0);
+                box-shadow: 0 0 5px #fff, 0 0 10px #fff;
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateX(100px) translateY(50px);
+                box-shadow: 0 0 8px #fff, 0 0 15px #fff, 0 0 20px #fff;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(200px) translateY(100px);
+                box-shadow: 0 0 0 transparent;
+            }
+        }
+
+        @keyframes particleExplosion {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--end-x, 50px), var(--end-y, 50px)) scale(0);
+            }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .birthday-text h1 {
+                font-size: 2rem;
+            }
+            
+            .name-placeholder {
+                font-size: 1.8rem;
+                padding: 8px 15px;
+            }
+            
+            .cake {
+                width: 150px;
+                height: 120px;
+            }
+            
+            .plate {
+                width: 200px;
+            }
+            
+            .candles {
+                gap: 10px;
+            }
+        }
+
+        /* 微信浏览器优化 */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            body {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 烟花效果 -->
+    <div class="firework firework1"></div>
+    <div class="firework firework2"></div>
+    <div class="firework firework3"></div>
+    <div class="firework firework4"></div>
+    <div class="firework firework5"></div>
+    <div class="firework firework6"></div>
+    <div class="firework firework7"></div>
+    <div class="firework firework8"></div>
+    
+    <!-- 大型烟花效果 -->
+    <div class="big-firework big-firework1"></div>
+    <div class="big-firework big-firework2"></div>
+    
+    <!-- 流星效果 -->
+    <div class="shooting-star shooting-star1"></div>
+    <div class="shooting-star shooting-star2"></div>
+    <div class="shooting-star shooting-star3"></div>
+
+    <div class="container">
+        <div class="birthday-text">
+            <h1>🎉 生日快乐 🎉</h1>
+            <div class="name-placeholder">
+                小云云
+            </div>
+        </div>
+
+        <div class="cake-container">
+            <div class="candles">
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+            </div>
+            <div class="cake"></div>
+            <div class="plate"></div>
+        </div>
+    </div>
+
+    <script>
+        // 动态创建更多烟花效果
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.position = 'absolute';
+            firework.style.left = Math.random() * 100 + '%';
+            firework.style.top = Math.random() * 50 + '%';
+            firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            firework.style.animation = 'firework 3s ease-out';
+            firework.style.width = '6px';
+            firework.style.height = '6px';
+            firework.style.borderRadius = '50%';
+            firework.style.zIndex = '5';
+            
+            document.body.appendChild(firework);
+            
+            setTimeout(() => {
+                firework.remove();
+            }, 3000);
+        }
+
+        // 创建大型烟花
+        function createBigFirework() {
+            const bigFirework = document.createElement('div');
+            bigFirework.className = 'big-firework';
+            bigFirework.style.position = 'absolute';
+            bigFirework.style.left = Math.random() * 80 + 10 + '%';
+            bigFirework.style.top = Math.random() * 40 + 10 + '%';
+            bigFirework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+            bigFirework.style.animation = 'bigFirework 4s ease-out';
+            bigFirework.style.width = '8px';
+            bigFirework.style.height = '8px';
+            bigFirework.style.borderRadius = '50%';
+            bigFirework.style.zIndex = '5';
+            
+            document.body.appendChild(bigFirework);
+            
+            setTimeout(() => {
+                bigFirework.remove();
+            }, 4000);
+        }
+
+        // 创建流星
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.position = 'absolute';
+            star.style.left = Math.random() * 20 + '%';
+            star.style.top = Math.random() * 20 + '%';
+            star.style.background = '#fff';
+            star.style.animation = 'shootingStar 3s linear';
+            star.style.width = '2px';
+            star.style.height = '2px';
+            star.style.borderRadius = '50%';
+            star.style.zIndex = '5';
+            
+            document.body.appendChild(star);
+            
+            setTimeout(() => {
+                star.remove();
+            }, 3000);
+        }
+
+        // 创建粒子爆炸效果
+        function createParticleExplosion(x, y) {
+            const colors = ['#ff0080', '#00ff80', '#8000ff', '#ff8000', '#0080ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1000';
+                
+                const angle = (i / 12) * Math.PI * 2;
+                const velocity = 50 + Math.random() * 50;
+                const endX = x + Math.cos(angle) * velocity;
+                const endY = y + Math.sin(angle) * velocity;
+                
+                particle.style.animation = `particleExplosion 1.5s ease-out forwards`;
+                particle.style.setProperty('--end-x', endX + 'px');
+                particle.style.setProperty('--end-y', endY + 'px');
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 1500);
+            }
+        }
+
+        // 每隔一段时间创建新烟花
+        setInterval(createFirework, 800);
+        setInterval(createBigFirework, 2500);
+        setInterval(createShootingStar, 1500);
+
+        // 点击屏幕创建烟花和粒子爆炸
+        document.addEventListener('click', function(e) {
+            // 创建点击烟花
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.position = 'absolute';
+            firework.style.left = e.clientX + 'px';
+            firework.style.top = e.clientY + 'px';
+            firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            firework.style.animation = 'firework 2s ease-out';
+            firework.style.zIndex = '1000';
+            firework.style.width = '6px';
+            firework.style.height = '6px';
+            firework.style.borderRadius = '50%';
+            
+            document.body.appendChild(firework);
+            
+            // 创建粒子爆炸
+            createParticleExplosion(e.clientX, e.clientY);
+            
+            setTimeout(() => {
+                firework.remove();
+            }, 2000);
+        });
+
+        // 微信浏览器兼容性优化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 禁用双击缩放
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function (event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // 禁用长按选择
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+            });
+            
+            // 禁用右键菜单
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+            
+            // 微信浏览器音频自动播放处理
+            if (typeof WeixinJSBridge !== 'undefined') {
+                WeixinJSBridge.invoke('getNetworkType', {}, function(res) {
+                    // 微信环境下的特殊处理
+                });
+            }
+        });
+
+        // 触摸事件优化（支持微信触摸）
+        let touchStartTime = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchStartTime = Date.now();
+        }, { passive: true });
+
+        document.addEventListener('touchend', function(e) {
+            const touchDuration = Date.now() - touchStartTime;
+            if (touchDuration < 500) { // 短触摸
+                const touch = e.changedTouches[0];
+                if (touch) {
+                    // 创建触摸烟花
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.position = 'absolute';
+                    firework.style.left = touch.clientX + 'px';
+                    firework.style.top = touch.clientY + 'px';
+                    firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    firework.style.animation = 'firework 2s ease-out';
+                    firework.style.zIndex = '1000';
+                    firework.style.width = '6px';
+                    firework.style.height = '6px';
+                    firework.style.borderRadius = '50%';
+                    
+                    document.body.appendChild(firework);
+                    
+                    // 创建粒子爆炸
+                    createParticleExplosion(touch.clientX, touch.clientY);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 2000);
+                }
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>
