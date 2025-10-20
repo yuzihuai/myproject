@@ -162,11 +162,12 @@
         /* 简化的烟花效果 - 避免闪烁 */
         .firework {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            opacity: 0;
+            opacity: 1;
             animation: firework 4s ease-out infinite;
+            z-index: 5;
         }
 
         .firework1 {
@@ -314,36 +315,38 @@
 
         @keyframes firework {
             0% {
-                opacity: 0;
-                transform: scale(0);
+                opacity: 1;
+                transform: scale(0.5);
+                box-shadow: 0 0 5px currentColor;
             }
-            10% {
+            15% {
                 opacity: 1;
                 transform: scale(1);
-            }
-            20% {
-                opacity: 0.8;
-                transform: scale(1.5);
                 box-shadow: 0 0 10px currentColor;
             }
-            40% {
-                opacity: 0.6;
-                transform: scale(2);
+            30% {
+                opacity: 0.9;
+                transform: scale(1.8);
                 box-shadow: 0 0 20px currentColor;
             }
-            60% {
-                opacity: 0.4;
+            50% {
+                opacity: 0.7;
                 transform: scale(2.5);
+                box-shadow: 0 0 25px currentColor;
+            }
+            70% {
+                opacity: 0.5;
+                transform: scale(3.2);
                 box-shadow: 0 0 15px currentColor;
             }
-            80% {
-                opacity: 0.2;
-                transform: scale(3);
-                box-shadow: 0 0 5px currentColor;
+            85% {
+                opacity: 0.3;
+                transform: scale(3.8);
+                box-shadow: 0 0 8px currentColor;
             }
             100% {
                 opacity: 0;
-                transform: scale(3.5);
+                transform: scale(4.5);
                 box-shadow: none;
             }
         }
@@ -583,8 +586,15 @@
             createMobileFirework(x, y);
         }
 
-        // 定时创建背景烟花
-        setInterval(createAutoFirework, 3000);
+        // 定时创建背景烟花 - 增加频率
+        setInterval(createAutoFirework, 2000);
+        
+        // 页面加载后立即创建一些烟花
+        setTimeout(() => {
+            createAutoFirework();
+            setTimeout(createAutoFirework, 500);
+            setTimeout(createAutoFirework, 1000);
+        }, 1000);
 
         // 页面加载完成后的初始化
         window.addEventListener('load', function() {
